@@ -1,0 +1,32 @@
+{
+  "name": "social-network",
+  "version": "1.0.0",
+  "description": "Full stack social network app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevMai90/social-network.git"
+  },
+  "author": "David M",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DevMai90/social-network/issues"
+  },
+  "homepage": "https://github.com/DevMai90/social-network#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.20",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}

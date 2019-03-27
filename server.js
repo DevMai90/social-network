@@ -1,6 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+// Load router modules
+const users = require('./routes/api/users');
+const profile = require('./routes/api/profile');
+const posts = require('./routes/api/posts');
+
 const app = express();
 
 // DB Config
@@ -13,6 +18,11 @@ mongoose
   .catch(err => console.log(err));
 
 app.get('/', (req, res) => res.send('<h1>Hello World</h1>'));
+
+// Use routes - Call on a router module if it hits a certain URL
+app.use('/api/users', users);
+app.use('/api/profile', profile);
+app.use('/api/posts', posts);
 
 const port = process.env.PORT || 5000;
 

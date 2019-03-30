@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 // Load router modules
 const users = require('./routes/api/users');
@@ -7,6 +8,11 @@ const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 
 const app = express();
+
+// Body parser middleware - Extracts entire body portion of incoming request stream and
+// exposes it as req.body.whatever
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // DB Config
 const db = require('./config/keys').mongoURI;

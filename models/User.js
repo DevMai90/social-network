@@ -26,7 +26,7 @@ const UserSchema = new Schema({
 });
 
 // 1. Export as a variable called User
-// 2. User will use mongoose to pass in the 'users' model name  based on UserSchema defined above.
+// 2. User will use mongoose to pass in the 'users' model name into MongoDB collections based on UserSchema defined above.
 // 3. Models USE schemas. They are not the same thing.
 module.exports = User = mongoose.model('users', UserSchema);
 

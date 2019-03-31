@@ -20,7 +20,7 @@ router.get('/test', (req, res) =>
 // When we send data to a route through a post request, we access it with req.body
 // Mongoose uses either callbacks or promises. Using promises in this app.
 router.post('/register', (req, res) =>
-  // Check if email already exists
+  // Check if email already exists in User model
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       return res.status(400).json({ email: 'Email already exists' });
@@ -38,11 +38,12 @@ router.post('/register', (req, res) =>
         avatar
       });
 
-      // Encrypt password
+      // Encrypt password - So that we don't send out the actual password.
       bcrpyt.genSalt(10, (err, salt) => {
         bcrpyt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
+          // Save the new user to MongoDB as a document within the users collection
           newUser
             .save()
             .then(user => res.json(user))
@@ -52,5 +53,31 @@ router.post('/register', (req, res) =>
     }
   })
 );
+
+// @route   POST /api/users/login
+// @desc    Login User / Return JWT Token
+// @access  Public
+router.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by email - Use Mongoose method. findOne finds one documents
+  User.findOne({ email }).then(user => {
+    // Check for user
+    if (!user) {
+      return res.status(404).json({ email: 'User not found' });
+    }
+
+    // Check for password - Use bcrypt
+    bcrpyt.compare(password, user.password).then(isMatch => {
+      // bcrypt returns a boolean
+      if (isMatch) {
+        res.json({ msg: 'Success' });
+      } else {
+        return res.status(400).json({ password: 'Password invalid' });
+      }
+    });
+  });
+});
 
 module.exports = router;

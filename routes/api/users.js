@@ -4,7 +4,7 @@ const gravatar = require('gravatar');
 const bcrpyt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
-const passport = require('passport');
+const passport = require('passport'); // To create private routes
 
 // Load User model
 const User = require('../../models/User');
@@ -79,7 +79,7 @@ router.post('/login', (req, res) => {
         // Create JWT payload. We can include anything we want
         const payload = { id: user.id, name: user.name, avatar: user.avatar };
 
-        // Creates signed JWT token - payload, secret key, expiration time in seconds, callback
+        // Creates signed JWT token - payload, secret key, expiration time in seconds (options), callback
         jwt.sign(
           payload,
           keys.secretOrKey,
@@ -87,7 +87,7 @@ router.post('/login', (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: 'Bearer ' + token
+              token: `Bearer ${token}`
             });
           }
         );

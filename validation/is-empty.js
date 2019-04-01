@@ -1,3 +1,6 @@
+// We must compare strings in Validator.
+// This function checks if it is empty - Returns boolean
+
 const isEmpty = value =>
   value === undefined ||
   value === null ||

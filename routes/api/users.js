@@ -6,6 +6,9 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport'); // To create private routes
 
+// Load Input Validation
+const validateRegisterInput = require('../../validation/register');
+
 // Load User model
 const User = require('../../models/User');
 
@@ -22,11 +25,18 @@ router.get('/test', (req, res) =>
 
 // When we send data to a route through a post request, we access it with req.body
 // Mongoose uses either callbacks or promises. Using promises in this app.
-router.post('/register', (req, res) =>
+router.post('/register', (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   // Check if email already exists in User model
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json({ email: 'Email already exists' });
+      errors.email = 'Email already exists';
+      return res.status(400).json(errors);
     } else {
       const avatar = gravatar.url(req.body.email, {
         s: '200', // Size
@@ -54,8 +64,8 @@ router.post('/register', (req, res) =>
         });
       });
     }
-  })
-);
+  });
+});
 
 // @route   POST /api/users/login
 // @desc    Login User / Return JWT Token

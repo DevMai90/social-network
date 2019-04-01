@@ -1,7 +1,8 @@
 const Validator = require('validator');
+const isEmpty = require('./is-empty');
 
 module.exports = function validateRegisterInput(data) {
-  // data is an object of things to validate
+  // data is an object of things to validate - req.body
   let errors = {};
 
   // Validating name field. (name, to be validated against)
@@ -11,6 +12,6 @@ module.exports = function validateRegisterInput(data) {
 
   return {
     errors,
-    isValid: errors
+    isValid: isEmpty(errors)
   };
 };

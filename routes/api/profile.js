@@ -29,6 +29,7 @@ router.get(
     const errors = {};
     // Protected route. The token will put user into req.user - See passport.js
     Profile.findOne({ user: req.user.id })
+      .populate('user', ['name', 'avatar']) // Connected our user and profile collections through Profile model
       .then(profile => {
         if (!profile) {
           // Note that we want errors as its variable - Initialize empty errors object
@@ -89,7 +90,9 @@ router.post(
           { user: req.user.id },
           { $set: profileFields },
           { new: true }
-        ).then(profile => res.json(profile));
+        )
+          .then(profile => res.json(profile))
+          .catch(err => res.status(400).json(err));
       } else {
         // Create
 

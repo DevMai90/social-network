@@ -17,6 +17,51 @@ module.exports = function validateProfileInputs(data) {
     errors.handle = 'Profile handle is required';
   }
 
+  if (Validator.isEmpty(data.status)) {
+    errors.status = 'Status field is required';
+  }
+
+  if (Validator.isEmpty(data.skills)) {
+    errors.skills = 'Skills field is required';
+  }
+
+  // Check if empty. If NOT empty then check if it is a URL
+  if (!isEmpty(data.website)) {
+    if (!Validator.isUrl(data.website)) {
+      errors.website = 'Not a valid URL';
+    }
+  }
+
+  if (!isEmpty(data.youtube)) {
+    if (!Validator.isUrl(data.youtube)) {
+      errors.youtube = 'Not a valid URL';
+    }
+  }
+
+  if (!isEmpty(data.twitter)) {
+    if (!Validator.isUrl(data.twitter)) {
+      errors.twitter = 'Not a valid URL';
+    }
+  }
+
+  if (!isEmpty(data.facebook)) {
+    if (!Validator.isUrl(data.facebook)) {
+      errors.facebook = 'Not a valid URL';
+    }
+  }
+
+  if (!isEmpty(data.linkedin)) {
+    if (!Validator.isUrl(data.linkedin)) {
+      errors.linkedin = 'Not a valid URL';
+    }
+  }
+
+  if (!isEmpty(data.instagram)) {
+    if (!Validator.isUrl(data.instagram)) {
+      errors.instagram = 'Not a valid URL';
+    }
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)

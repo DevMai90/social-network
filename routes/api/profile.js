@@ -47,9 +47,9 @@ router.get(
 //          This is a backend route. The front end page will have a different link. Gets hit by our front end.
 // @desc    Get profile by handle
 // @access  Public
-router.get('/handle/Ihandle', (req, res) => {
+router.get('/handle/:handle', (req, res) => {
   const errors = {};
-  Profile.findOne({ handle: req.handle.params })
+  Profile.findOne({ handle: req.params.handle })
     .populate('user', ['name', 'avatar'])
     .then(profile => {
       if (!profile) {
@@ -65,15 +65,17 @@ router.get('/handle/Ihandle', (req, res) => {
 // @route   GET /api/profile/user/:user_id
 // @desc    Get profile by user id
 // @access  Public
-router.get('/api/profile/user/:user_id', (req, res) => {
+router.get('/user/:user_id', (req, res) => {
   const errors = {};
   Profile.findOne({ user: req.params.user_id })
     .populate('user', ['name', 'avatar'])
     .then(profile => {
       if (!profile) {
         errors.noprofile = 'There is no profile for this user';
+        res.status(404).json({ errors });
       }
-      res.status(404).json({ errors });
+
+      res.json(profile);
     })
     .catch(err => res.status(404).json(err));
 });

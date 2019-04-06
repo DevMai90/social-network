@@ -43,6 +43,25 @@ router.get(
   }
 );
 
+// @route   GET /api/profile/handle/:handle
+//          This is a backend route. The front end page will have a different link. Gets hit by our front end.
+// @desc    Get profile by handle
+// @access  Public
+router.get('/handle/Ihandle', (req, res) => {
+  const errors = {};
+  Profile.findOne({ handle: req.handle.params })
+    .populate('users', ['name', 'avatar'])
+    .then(profile => {
+      if (!profile) {
+        errors.noprofile = 'There is no profile for this user';
+        res.status(404).json({ errors });
+      }
+
+      res.json(profile);
+    })
+    .catch(err => res.status(404).json(err));
+});
+
 // @route   POST /api/profile
 // @desc    Create or edit user profile
 // @access  Private

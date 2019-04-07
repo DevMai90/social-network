@@ -5,6 +5,7 @@ const passport = require('passport');
 
 // Load Validation
 const validateProfileInputs = require('../../validation/profile');
+const validateExperienceInput = require('../../validation/experience');
 
 // Load Profile Model
 const Profile = require('../../models/Profile');
@@ -170,25 +171,37 @@ router.post(
 // @route   /api/profile/experience
 // @desc    Add experience to profile
 // @access  Private
-router
-  .post(
-    '/experience',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      // Find our user. Returns a promise
-      Profile.findOne({ user: req.user.id });
+router.post(
+  '/experience',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateExperienceInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      // Return any errors with status 400 - Input error
+      return res.status(400).json(errors);
     }
-  )
-  .then(profile => {
-    const newExp = {
-      title: req.body.title,
-      company: req.body.company,
-      location: req.body.location,
-      from: req.body.from,
-      to: req.body.to,
-      current: req.body.current,
-      description: req.body.description
-    };
-  });
+    // Find out user by id that comes from jwt
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        const newExp = {
+          title: req.body.title,
+          company: req.body.company,
+          location: req.body.location,
+          from: req.body.from,
+          to: req.body.to,
+          current: req.body.current,
+          description: req.body.description
+        };
+
+        // Add to front of experience array
+        profile.experience.unshift(newExp);
+
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.json(err));
+  }
+);
 
 module.exports = router;

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
 class Register extends Component {
   state = {
@@ -23,14 +26,19 @@ class Register extends Component {
       password2: this.state.password2
     };
 
-    axios
-      .post('/api/users/register', newUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.registerUser(newUser);
+    // axios
+    //   .post('/api/users/register', newUser)
+    //   .then(res => console.log(res.data))
+    //   .catch(err => this.setState({ errors: err.response.data }));
   };
 
   render() {
     const { name, email, password, password2, errors } = this.state;
+
+    // See below.
+    const { user } = this.props.auth;
+
     return (
       <div className="register">
         <div className="container">
@@ -107,4 +115,19 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+// In order to get auth state into our  react component...
+// Puts auth state into a prop called auth. Can be accessed with this.props.auth
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+// Action creators become available through props
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(Register);

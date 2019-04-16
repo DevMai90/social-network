@@ -14,3 +14,23 @@ export const registerUser = (userData, history) => dispatch => {
       })
     );
 };
+
+// Login - Get user token
+export const loginUser = userData => dispatch => {
+  axios
+    .post('/api/users/login', userData)
+    .then(res => {
+      // Save to local storage
+      const { token } = res.data;
+      // Set token to local storage
+      localStorage.setItem('jwt', token);
+      // Set token to Authorization Header - Custom function
+      setAuthToken(token);
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};

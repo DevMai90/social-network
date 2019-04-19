@@ -11,6 +11,12 @@ class Login extends Component {
     errors: {}
   };
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
   static getDerivedStateFromProps(props, state) {
     const { errors, auth } = props;
     // Check authentication

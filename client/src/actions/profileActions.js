@@ -4,11 +4,12 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   PROFILE_NOT_FOUND,
-  GET_ERRORS
+  GET_ERRORS,
+  CLEAR_CURRENT_PROFILE
 } from './types';
 
 export const getCurrentProfile = () => dispatch => {
-  dispatch(profileLoading());
+  dispatch(setProfileLoading());
   axios
     .get('/api/profile')
     .then(res =>
@@ -26,8 +27,15 @@ export const getCurrentProfile = () => dispatch => {
 };
 
 // Profile loading
-export const profileLoading = () => {
+export const setProfileLoading = () => {
   return {
     type: PROFILE_LOADING
+  };
+};
+
+// Clear Profile
+export const clearCurrentProfile = () => {
+  return {
+    type: CLEAR_CURRENT_PROFILE
   };
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getCurrentProfile,
-  profileLoading
+  setProfileLoading
 } from '../../actions/profileActions';
 
 class Dashboard extends Component {
@@ -33,5 +33,5 @@ Dashboard.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, profileLoading }
+  { getCurrentProfile, setProfileLoading }
 )(Dashboard);

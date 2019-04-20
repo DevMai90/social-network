@@ -8,7 +8,7 @@ import {
 } from './types';
 
 export const getCurrentProfile = () => dispatch => {
-  dispatch(setProfileLoading());
+  dispatch(profileLoading());
   axios
     .get('/api/profile')
     .then(res =>

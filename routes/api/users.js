@@ -87,7 +87,7 @@ router.post('/login', (req, res) => {
     // Check for user
     if (!user) {
       errors.email = 'User not found';
-      return res.status(404).json({ errors });
+      return res.status(404).json(errors);
     }
 
     // Check for password - Use bcrypt

@@ -26,6 +26,7 @@ class Login extends Component {
     }
     // Check errors
     if (errors) {
+      console.log('hihihi');
       return { errors };
     }
     return null;

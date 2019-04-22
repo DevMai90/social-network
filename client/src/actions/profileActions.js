@@ -26,6 +26,19 @@ export const getCurrentProfile = () => dispatch => {
     );
 };
 
+// Create profile - Pass in profileData and history. history allows us to redirect
+export const createProfile = (profileData, history) => dispatch => {
+  axios
+    .post('/api/profile')
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Profile loading
 export const setProfileLoading = () => {
   return {

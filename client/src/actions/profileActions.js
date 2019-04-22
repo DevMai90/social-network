@@ -29,7 +29,7 @@ export const getCurrentProfile = () => dispatch => {
 // Create profile - Pass in profileData and history. history allows us to redirect
 export const createProfile = (profileData, history) => dispatch => {
   axios
-    .post('/api/profile')
+    .post('/api/profile', profileData)
     .then(res => history.push('/dashboard'))
     .catch(err =>
       dispatch({

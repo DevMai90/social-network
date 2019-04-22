@@ -48,8 +48,60 @@ class CreateProfile extends Component {
       facebook,
       linkedin,
       youtube,
-      istagram
+      instagram,
+      displaySocialInputs
     } = this.state;
+
+    // Social Media Inputs
+    let socialInputs;
+
+    if (displaySocialInputs) {
+      socialInputs = (
+        <React.Fragment>
+          <InputGroup
+            placeholder="Twitter Profile URL"
+            name="twitter"
+            value={twitter}
+            icon="fab fa-twitter"
+            error={errors.twitter}
+            onChange={this.onChange}
+          />
+
+          <InputGroup
+            placeholder="Facebook Page URL"
+            name="facebook"
+            value={facebook}
+            icon="fab fa-facebook"
+            error={errors.facebook}
+            onChange={this.onChange}
+          />
+          <InputGroup
+            placeholder="LinkedIn Profile URL"
+            name="linkedin"
+            value={linkedin}
+            icon="fab fa-linkedin"
+            error={errors.linkedin}
+            onChange={this.onChange}
+          />
+          <InputGroup
+            placeholder="YouTube Page URL"
+            name="youtube"
+            value={youtube}
+            icon="fab fa-youtube"
+            error={errors.youtube}
+            onChange={this.onChange}
+          />
+          <InputGroup
+            placeholder="Instagram Page URL"
+            name="instagram"
+            value={instagram}
+            icon="fab fa-instagram"
+            error={errors.instagram}
+            onChange={this.onChange}
+          />
+        </React.Fragment>
+      );
+    }
 
     // Select options for status
     const options = [
@@ -145,6 +197,26 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   error={errors.bio}
                   info="Tell us a little about yourself"
+                />
+
+                <div className="mb-3">
+                  <button
+                    className="btn btn-light"
+                    onClick={() =>
+                      this.setState({
+                        displaySocialInputs: !this.state.displaySocialInputs
+                      })
+                    }
+                  >
+                    Add Social Network Links
+                  </button>{' '}
+                  <span className="text-muted">Optional</span>
+                </div>
+                {socialInputs}
+                <input
+                  type="submit"
+                  value="Submit Profile"
+                  className="btn btn-info btn-block mt-4"
                 />
               </form>
             </div>

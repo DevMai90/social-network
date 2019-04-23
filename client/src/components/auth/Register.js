@@ -28,6 +28,7 @@ class Register extends Component {
     }
     return null;
   }
+
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   onSubmit = e => {

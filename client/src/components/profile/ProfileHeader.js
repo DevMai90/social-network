@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import isEmpty from '../../validation/is-empty';
 
 class ProfileHeader extends Component {
@@ -32,6 +33,7 @@ class ProfileHeader extends Component {
                   className="text-white pr-2"
                   href={profile.website}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fas fa-globe fa-2x" />
                 </a>
@@ -42,6 +44,7 @@ class ProfileHeader extends Component {
                   href={profile.social.twitter}
                   className="text-white"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-twitter fa-2x pr-2" />
                 </a>
@@ -52,6 +55,7 @@ class ProfileHeader extends Component {
                   href={profile.social.facebook}
                   className="text-white"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-facebook fa-2x pr-2" />
                 </a>
@@ -62,6 +66,7 @@ class ProfileHeader extends Component {
                   href={profile.social.linkedin}
                   className="text-white"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-linkedin fa-2x pr-2" />
                 </a>
@@ -72,6 +77,7 @@ class ProfileHeader extends Component {
                   href={profile.social.youtube}
                   className="text-white"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-youtube fa-2x pr-2" />
                 </a>
@@ -82,6 +88,7 @@ class ProfileHeader extends Component {
                   href={profile.social.instagram}
                   className="text-white"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-instagram fa-2x pr-2" />
                 </a>
@@ -93,5 +100,9 @@ class ProfileHeader extends Component {
     );
   }
 }
+
+ProfileHeader.propTypes = {
+  profile: PropTypes.object.isRequired
+};
 
 export default ProfileHeader;

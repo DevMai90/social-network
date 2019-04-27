@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PostForm from './PostForm';
+import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
-import PostFeed from './PostFeed';
 
 class Posts extends Component {
   componentDidMount() {
@@ -37,7 +37,7 @@ class Posts extends Component {
 
 Posts.propTypes = {
   post: PropTypes.object.isRequired,
-  getPosts: PropTypes.object.isRequired
+  getPosts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

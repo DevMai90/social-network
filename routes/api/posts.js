@@ -51,7 +51,7 @@ router.post(
 
     if (!isValid) {
       // If any errors send 400 with errors object
-      return res.statusMessage(400).json(errors);
+      return res.status(400).json(errors);
     }
 
     const newPost = new Post({
@@ -151,8 +151,7 @@ router.post(
           // Save to database
           post.save().then(post => res.json(post));
         })
-        .catch(err => res.status(404))
-        .json({ postnotfound: 'No post found' });
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
     });
   }
 );

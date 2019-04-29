@@ -54,8 +54,7 @@ export const getPost = id => dispatch => {
     .then(res =>
       dispatch({
         type: GET_POST,
-        payload: res.data,
-        loading: false
+        payload: res.data
       })
     )
     .catch(err =>
